@@ -2,8 +2,7 @@ const cypherServices = require("./cypher");
 // const advcashApi = require("./api/advcash")
 const cryptoServices = require("./crypto");
 const MERCURYO_WIDGET_ID = "123";
-const TRANSAK_API_KEY_PROD = process.env.TRANSAK_API_KEY_PROD;
-const TRANSAK_API_KEY_TEST = process.env.TRANSAK_API_KEY_TEST;
+const {TRANSAK_API_KEY_PROD,TRANSAK_API_KEY_TEST} = require("../utils/transakKeyConfig")
 
 
 const blockchainTransakConventionMapper = {

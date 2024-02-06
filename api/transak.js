@@ -1,11 +1,11 @@
 const axios = require("axios");
 const querystring = require("node:querystring");
-
+const {TRANSAK_API_KEY_PROD,TRANSAK_API_KEY_TEST,TRANSAK_SECRET_PROD,TRANSAK_SECRET_TEST} = require("../utils/transakKeyConfig")
 
 const refreshAccessToken = async ({isProd}) => {
   const baseUrl = isProd ? "https://api.transak.com" : "https://api-stg.transak.com"
-  const apiKey = isProd ? process.env.TRANSAK_API_KEY_PROD : process.env.TRANSAK_API_KEY_TEST
-  const TRANSAK_SECRET = isProd ? process.env.TRANSAK_SECRET_PROD : process.env.TRANSAK_SECRET_TEST
+  const apiKey = isProd ? TRANSAK_API_KEY_PROD : TRANSAK_API_KEY_TEST
+  const TRANSAK_SECRET = isProd ? TRANSAK_SECRET_PROD : TRANSAK_SECRET_TEST
 
   const url = `${baseUrl}/partners/api/v2/refresh-token`;
   const payload = { apiKey: apiKey };
@@ -27,7 +27,7 @@ const refreshAccessToken = async ({isProd}) => {
 const fetchFiatCurrencies = async () => {
   //always test
   const baseUrl = "https://api-stg.transak.com"
-  const apiKey = process.env.TRANSAK_API_KEY_TEST
+  const apiKey = TRANSAK_API_KEY_TEST
 
   const url =
     baseUrl +
@@ -39,7 +39,7 @@ const fetchFiatCurrencies = async () => {
 
 const apiFetchDepositPrice = async ({ currency, fiatAmount }) => {
   //always test
-  const apiKey = process.env.TRANSAK_API_KEY_TEST
+  const apiKey = TRANSAK_API_KEY_TEST
   const baseUrl = "https://api-stg.transak.com"
 
   const payload = {
