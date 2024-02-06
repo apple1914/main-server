@@ -3,7 +3,7 @@ const VirtualBalances = require("../models/virtualBalances");
 const fetchVirtualBalanceByUsername = async ({ username }) => {
   console.log("fetching for username:", username);
   const myVirtualBalance = await VirtualBalances.findOne({ username });
-  console.log("myVirtualBalance:", myVirtualBalance);
+  console.log("myVirtualBalanc.e:", myVirtualBalance);
 
   return myVirtualBalance.usdtBalance;
 };
