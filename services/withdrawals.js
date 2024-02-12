@@ -90,7 +90,7 @@ const updateWithdrawalById = async ({ withdrawalId, update }) => {
 
 const fetchWithdrawals = async ({ username }) => {
   const allMyWithdrawals = await Withdrawals.find({ username });
-  return allMyWithdrawals;
+  return allMyWithdrawals;//
 };
 
 const acidProcessWithdrawalSuccess = async ({
