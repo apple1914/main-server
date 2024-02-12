@@ -217,11 +217,13 @@ const acidReflectDeposit = async ({ usdtAmount, depositId }) => {
       { usdtAmount: usdtAmount, completed: true },
       opts
     );
+    console.log("finished recording deposit!")
 
     await session.commitTransaction();
     session.endSession();
-    return true;
+    return;
   } catch (error) {
+    console.log("error w session mongo",error)
     await session.abortTransaction();
     session.endSession();
     throw error;
