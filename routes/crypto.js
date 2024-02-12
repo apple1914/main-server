@@ -39,18 +39,14 @@ router.post("/mercuryoDepositSuccessWebhook", async (req, res, next) => {
   res.sendStatus(200);
 });
 
-router.post("/transakDepositSuccessWebhook/development", async (req, res, next) => {
+router.post("/transakDepositSuccessWebhook/:environment", async (req, res, next) => {
+  const {environment} = req.params
   const payload = req.body.data;
-  console.log("FUCKING CHACHACHING! transak is on the line development", payload);
-  depositServices.processTransakWebhook({payload,isProd:false});
+  const isProd = environment === "production"
+  console.log("FUCKING CHACHACHING! transak is on the line", environment);
+  await depositServices.processTransakWebhook({payload,isProd:isProd});
   res.sendStatus(200);
 });
 
-router.post("/transakDepositSuccessWebhook/production", async (req, res, next) => {
-  const payload = req.body.data;
-  console.log("FUCKING CHACHACHING! transak is on the line production", payload);
-  depositServices.processTransakWebhook({payload,isProd:true});
-  res.sendStatus(200);
-});
 
 module.exports = router;

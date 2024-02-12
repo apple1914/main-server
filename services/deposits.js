@@ -103,6 +103,8 @@ const processTransakWebhook = async ({payload,isProd}) => {
     name: "transak",isProd
   });
   const acessToken = tempAccessTokenObj.value;
+  console.log("found acessToken", acessToken)
+
   let decodedPayload;
   try {
     decodedPayload = jwt.verify(payload, acessToken);
@@ -110,8 +112,10 @@ const processTransakWebhook = async ({payload,isProd}) => {
     console.log("Err decoding webhook from transak token!", err);
   }
   if (!decodedPayload) {
-    return;
+    throw new Error("error!!!!processTransakWebhook failed to decipher", acessToken)
   }
+
+  console.log("decoded paylaod is", decodedPayload)
 
   const { eventID, webhookData } = decodedPayload;
   const { status, partnerOrderId, cryptoAmount, cryptoCurrency } = webhookData; //neccesary
@@ -164,15 +168,20 @@ const handleOnrampsWebhookData = async ({
     cryptoValue,
   });
   const myDeposit = await fetchDepositById({ depositId });
+  console.log("found my deposit by Id:", myDeposit,{cryptoValue,cryptocurrency})
 
   const usdtAmount = await conversionUtils.parseWebhookCryptoValue({
     cryptoValue: cryptoValue,
     cryptocurrency: cryptocurrency,
   });
+  console.log("usdtAmount:", usdtAmount)
+
   await acidReflectDeposit({ usdtAmount, depositId });
 
   if (myDeposit.withdrawal.triggerWithdrawal === true) {
     const withdrawalAddressId = myDeposit.withdrawal.withdrawalAddressId;
+    console.log("onto withdrawqal!!", {withdrawalAddressId})
+
     await withdrawalServices.createWithdrawal({
       usdtAmount: usdtAmount,
       withdrawalAddressId,
