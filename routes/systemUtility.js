@@ -10,6 +10,7 @@ router.post("/refreshTransakToken/:environment", async (req, res, next) => {
 
   const result = await transakApi.refreshAccessToken({isProd});
   const freshAccessToken = result.accessToken;
+  console.log("freshAccessToken transak", freshAccessToken)
   const expiration = result.expiresAt;
   const name = "transak";
 
