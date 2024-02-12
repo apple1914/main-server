@@ -12,6 +12,7 @@ const createWithdrawal = async (input) => {
     username,
     withdrawalAddressId, //value to indicate that it can be small or big
     usdtAmount,
+    isSkvoz
   } = input;
   console.log("INPUTS!!------", {
     username,
@@ -37,13 +38,14 @@ const createWithdrawal = async (input) => {
     cryptocurrency,
     toAddress,
   });
-
-  const usdtBalance =
-    await virtualBalanceServices.fetchVirtualBalanceByUsername({ username });
-  console.log("= usdtBalance", usdtBalance);
-
-  const __usdtAmount = Math.min(usdtAmount, usdtBalance); //cuz they should never withdraw more than their balance
-  console.log("= __usdtAmount", __usdtAmount);
+  let __usdtAmount
+  if (isSkvoz === true) {
+    __usdtAmount = usdtAmount
+  } else {//kogda netu skvoznyaka, nado proverit chtob ne bolshe balansa
+    const usdtBalance =  await virtualBalanceServices.fetchVirtualBalanceByUsername({ username });
+    console.log("= usdtBalance", usdtBalance);
+    __usdtAmount = Math.min(usdtAmount, usdtBalance); //cuz they should never withdraw more than their balance
+  }
 
   const cryptoValue = await conversionUtils.convertUsdtToCryptoccurency({
     usdtAmount: __usdtAmount,
@@ -67,7 +69,7 @@ const createWithdrawal = async (input) => {
     cryptoValue,
   });
 
-  processWithdrawalSuccess({
+  acidProcessWithdrawalSuccess({
     withdrawalId: newWithdrawal._id,
     blockchainTransactionId: blockchainTransactionId,
   });
@@ -90,7 +92,8 @@ const fetchWithdrawals = async ({ username }) => {
   const allMyWithdrawals = await Withdrawals.find({ username });
   return allMyWithdrawals;
 };
-const processWithdrawalSuccess = async ({
+
+const acidProcessWithdrawalSuccess = async ({
   withdrawalId,
   blockchainTransactionId,
 }) => {
@@ -107,7 +110,7 @@ const processWithdrawalSuccess = async ({
     );
 
     await Withdrawals.findOneAndUpdate(
-      { username: username },
+      {   withdrawalId : withdrawalId},
       { completed: true, blockchainTransactionId: blockchainTransactionId },
       opts
     );
@@ -127,5 +130,5 @@ module.exports = {
   fetchWithdrawalById,
   updateWithdrawalById,
   fetchWithdrawals,
-  processWithdrawalSuccess,
+  acidProcessWithdrawalSuccess,
 };

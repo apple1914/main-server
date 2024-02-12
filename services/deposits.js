@@ -32,6 +32,7 @@ const createDeposit = async (input) => {
     triggerWithdrawal,
     withdrawalAddressId,
   } = input;
+  //SIMPLIFY - leave virstual balances, but for deposit cases only. for skvoznyak, omit it
 
 
 
@@ -175,8 +176,8 @@ const handleOnrampsWebhookData = async ({
     cryptocurrency: cryptocurrency,
   });
   console.log("usdtAmount:", usdtAmount)
+  acidReflectDeposit({depositId,usdtAmount})
 
-  await acidReflectDeposit({ usdtAmount, depositId });
 
   if (myDeposit.withdrawal.triggerWithdrawal === true) {
     const withdrawalAddressId = myDeposit.withdrawal.withdrawalAddressId;
@@ -186,6 +187,7 @@ const handleOnrampsWebhookData = async ({
       usdtAmount: usdtAmount,
       withdrawalAddressId,
       username: myDeposit.username,
+      isSkvoz:true//skvoznyak
     }); //TEMP_AWAIT
   }
 };
@@ -213,7 +215,7 @@ const acidReflectDeposit = async ({ usdtAmount, depositId }) => {
     );
 
     await Deposits.findOneAndUpdate(
-      { username: username },
+      { depositId: depositId },
       { usdtAmount: usdtAmount, completed: true },
       opts
     );
