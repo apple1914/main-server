@@ -15,21 +15,13 @@ const logServices = require("../services/logs");
 const DEPOSIT_BLOCKCHAIN = "bsc";
 
 const blockchainToDepositSettings = {
-  polygon: {
-    cryptocurrency: {
-      cryptocurrency: "USDC",
-      type: "token",
-      contractAddress: "XYZ",
-    },
-    address: "0x3F553aA2f8FA5C58A8B66fddD75E0AC66f7269FC",//need address here
-  },
   bsc: {
     cryptocurrency: {
       cryptocurrency: "USDT",
       type: "token",
       contractAddress: "XYZ",
     },
-    address: "0x3F553aA2f8FA5C58A8B66fddD75E0AC66f7269FC",
+    address: process.env.BSC_DISTRIBUTOR_ADDRESS_PUBLIC_KEY,
   },
 };
 const createDeposit = async (input) => {
