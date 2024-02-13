@@ -51,7 +51,6 @@ const createWithdrawal = async (input) => {
     usdtAmount: __usdtAmount,
     cryptocurrency: myWithdrawalAddress.cryptocurrency,
   });
-  console.log("convertUsdtToCryptoccurency cryptoValue", cryptoValue);
 
   const definition = {
     username,
