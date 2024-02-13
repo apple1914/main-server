@@ -26,22 +26,18 @@ const parseMercuryoAmountString = ({ amount }) => {
 };
 
 const convertUsdtToCryptoccurency = async ({ usdtAmount, cryptocurrency }) => {
-  console.log("usdtAmount cryptocurrency:", { usdtAmount, cryptocurrency });
   const data = await coinmarketcapApis.fetchPrice({ cryptocurrency }); //check - it's eitehr data or data.data
 
   // console.log("data.cr[0]:", data[cryptocurrency][0]);
   // console.log("PRICE", data[cryptocurrency][0].quote["USD"].price);
   const price = data[cryptocurrency][0].quote["USD"].price;
-  console.log("price price:", { price });
-  console.log("cryptoValue= usdtAmount / price:", {
-    usdtAmount: Number(usdtAmount),
-    price,
-  });
+  
 
   const cryptoValue = Number(usdtAmount) / Number(price);
-  console.log("cryptoValue= usdtAmount / price:", {
-    cryptoValue,
-  });
+  
+
+  console.log("convertUsdtToCryptoccurency math:", { usdtAmount, cryptocurrency,price,cryptoValue });
+
   return cryptoValue.toFixed(7).toString();
 };
 
