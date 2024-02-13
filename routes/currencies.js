@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const currencyServices = require("../services/currencies")
-
+const conversionUtils = require("../utils/conversions")
 
 router.post("/addWithdrawCurrency/:currency", async (req, res, next) => {
     const { currency } = req.params;
@@ -31,5 +31,11 @@ router.post("/updateAllWithdrawValues", async (req, res, next) => {
     res.sendStatus(200);
 });//NEEDS:CRONJOB
 
-  
+router.get("/testConvert", async (req, res, next) => {
+    const {usdtAmount,cryptocurrency} = req.query
+    const answer = await conversionUtils.convertUsdtToCryptoccurency( {usdtAmount,cryptocurrency});
+    res.json(answer);
+});
+
+//convertUsdtToCryptoccurency
 module.exports = router;
