@@ -20,7 +20,7 @@ const createOnramp = async (input) => {
     cryptocurrency,
   } = input;
   // const isProd = fiatAmount !== 791
-  const isProd = false
+  const isProd = true
 
 
   const onrampName = "transak"; //"advcash"
