@@ -19,8 +19,8 @@ const createOnramp = async (input) => {
     address,
     cryptocurrency,
   } = input;
-  const isProd = fiatAmount == 79 && fiatCurrency === 'CHF'
-  console.log("HERE AT CREATEONRAMP INPUTs:", {...input,isProd})
+  const testInputTriggered = fiatAmount == 79 && fiatCurrency === 'CHF'
+  const isProd = !testInputTriggered
 
   
 
