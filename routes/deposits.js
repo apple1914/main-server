@@ -11,14 +11,16 @@ const isItLocalhost = process.env.NODE_ENV === 'development'
 // 2. once you go live, switch transak tests from levii to _test regular
 // 
 // ---------------------------------
-if (isItLocalhost) {
-  router.use(VerifyToken);
-}
+// if (isItLocalhost) {
+//   router.use(VerifyToken);
+// } for testing on local
+router.use(VerifyToken);
 
 
 router.post("/", async (req, res, next) => {
  
-  const username = isItLocalhost ? req.body.username : req.user?.uid;
+  // const username = isItLocalhost ? req.body.username : req.user?.uid;
+  const username = req.user.uid;
   console.log("desposit creat eusername is:", {username})
 
   const { fiatAmount, fiatCurrency } = req.body;
