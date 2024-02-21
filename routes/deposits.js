@@ -19,6 +19,7 @@ if (isItLocalhost) {
 router.post("/", async (req, res, next) => {
  
   const username = isItLocalhost ? req.body.username : req.user?.uid;
+  console.log("desposit creat eusername is:", {username})
 
   const { fiatAmount, fiatCurrency } = req.body;
 
