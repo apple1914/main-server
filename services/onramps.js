@@ -33,7 +33,7 @@ const createOnramp = async (input) => {
     cryptocurrency,
     blockchain,
     address,
-    isProd : isProd || true
+    isProd 
   });
 
   return { onrampPayload, onrampName };

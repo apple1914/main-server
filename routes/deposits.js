@@ -2,6 +2,8 @@ var express = require("express");
 var router = express.Router();
 const depositServices = require("../services/deposits");
 const { VerifyToken } = require("../middlewares/VerifyToken.js");
+
+const isItLocalhost = process.env.NODE_ENV === 'development'
 // ---------------------------------IMPORTANT REMINDERS----------------
 // 
 // 
@@ -9,11 +11,14 @@ const { VerifyToken } = require("../middlewares/VerifyToken.js");
 // 2. once you go live, switch transak tests from levii to _test regular
 // 
 // ---------------------------------
+if (isItLocalhost) {
+  router.use(VerifyToken);
+}
 
-router.use(VerifyToken);
 
 router.post("/", async (req, res, next) => {
-  const username = req.user.uid;
+ 
+  const username = isItLocalhost ? req.body.username : req.user?.uid;
 
   const { fiatAmount, fiatCurrency } = req.body;
 
