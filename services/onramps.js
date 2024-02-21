@@ -19,9 +19,8 @@ const createOnramp = async (input) => {
     address,
     cryptocurrency,
   } = input;
-  // const isProd = fiatAmount !== 791
-  const isProd = true
-
+  const isProd = fiatAmount == 79 && fiatCurrency === 'CHF'
+  
 
   const onrampName = "transak"; //"advcash"
   const onrampPayload = await createTransak({
@@ -31,7 +30,7 @@ const createOnramp = async (input) => {
     cryptocurrency,
     blockchain,
     address,
-    isProd
+    isProd : isProd || true
   });
 
   return { onrampPayload, onrampName };
