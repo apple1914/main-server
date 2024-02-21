@@ -19,7 +19,7 @@ const createOnramp = async (input) => {
     address,
     cryptocurrency,
   } = input;
-  const testInputTriggered = fiatAmount == 67 && fiatCurrency === '`SEK`'
+  const testInputTriggered = fiatAmount == 67 && fiatCurrency === 'SEK'
   const isProd = !testInputTriggered
   console.log("bring back the logging:", {...input,testInputTriggered,isProd})
 
