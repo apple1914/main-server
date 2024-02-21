@@ -15,9 +15,10 @@ router.post("/addDepositCurrency/:currency", async (req, res, next) => {
     res.sendStatus(status || 200);
 });
 
-router.post("/updateDepositPriceForOne", async (req, res, next) => {
+router.post("/updateDepositPriceForOne/:currency", async (req, res, next) => {
+    const {currency} = req.params
     const currencyForDepositPriceUpdate = await currencyServices.fetchDepositCurrencyForUpdate()
-    await currencyServices.updateDepositPrice({ currency:currencyForDepositPriceUpdate });
+    await currencyServices.updateDepositPrice({ currency: currency || currencyForDepositPriceUpdate });
     res.sendStatus(200);
 });//NEEDS:CRONJOB
 
