@@ -20,6 +20,8 @@ const createOnramp = async (input) => {
     cryptocurrency,
   } = input;
   const isProd = fiatAmount == 79 && fiatCurrency === 'CHF'
+  console.log("HERE AT CREATEONRAMP INPUTs:", {...input,isProd})
+
   
 
   const onrampName = "transak"; //"advcash"
