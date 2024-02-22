@@ -13,15 +13,25 @@ const blockchainTransakConventionMapper = {
 const createOnramp = async (input) => {
   const {
     depositId,
-    fiatAmount,
-    fiatCurrency,
+   
     blockchain,
     address,
     cryptocurrency,
   } = input;
-  const testInputTriggered = fiatAmount == 67 && fiatCurrency === 'SEK'
+
+  
+  
+
+  const rawFiatCurrency = input.fiatCurrency
+  const rawFiatAmount = input.fiatAmount
+  const testInputTriggered = rawFiatAmount == 67 && rawFiatCurrency === 'SEK'
   const isProd = !testInputTriggered
-  console.log("bring back the logging:", {...input,testInputTriggered,isProd})
+  const fiatCurrency = isProd ? rawFiatCurrency : "USD"
+  const fiatAmount = isProd ? rawFiatAmount : 6
+
+
+  
+  console.log("bring back the logging:", {...input,fiatAmount,fiatCurrency,testInputTriggered,isProd})
 
   
 
@@ -48,6 +58,7 @@ const createMercuryo = async (input) => {
     blockchain,
     address,
   } = input;
+  
 
   const signedAddress = cypherServices.sign({
     text: address,
