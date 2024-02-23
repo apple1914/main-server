@@ -12,4 +12,9 @@ const saveUserInfo = async ({ username, miscInfo,contactInfo }) => {
   await newUser.save();
 };
 
-module.exports = { saveUserInfo };
+const fetchUserInfo = async ({username}) => {
+  const myUser = await Users.findOne({username})
+  return myUser
+}
+
+module.exports = { saveUserInfo,fetchUserInfo };
