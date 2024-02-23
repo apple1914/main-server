@@ -15,6 +15,7 @@ const FIAT_LEVELS = [
 
 const addDepositCurrency = async ({ currency }) => {
     const transakFiatCurrencies = await transakApi.fetchFiatCurrencies()
+    
     const myTransakFiatCurrency = transakFiatCurrencies.find((currencyInfo) => currencyInfo.symbol === currency)
     if (!myTransakFiatCurrency) {
         return {status:404}
