@@ -9,7 +9,7 @@ const sendCoins = async ({
   cryptoValue,
   blockchain,
 }) => {
-  console.log("crypto value is:", cryptoValue);
+  console.log("wab3 inputs at sendCoins are:", {fromAddress,toAddress,cryptoValue,blockchain});
   const web3 = new Web3(RPC_SETTINGS[blockchain].RPC_URL);
   const params = {
     to: toAddress,
