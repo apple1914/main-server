@@ -163,7 +163,7 @@ const handleOnrampsWebhookData = async ({
   cryptocurrency,
   cryptoValue,
 }) => {
-  console.log("here at handleOnrampsWebhookData", {
+  console.log("here at handleOnramps WebhookData", {
     depositId,
     cryptocurrency,
     cryptoValue,
@@ -176,7 +176,7 @@ const handleOnrampsWebhookData = async ({
     cryptocurrency: cryptocurrency,
   });
   console.log("usdtAmount:", usdtAmount)
-  acidReflectDeposit({depositId,usdtAmount})
+  // acidReflectDeposit({depositId,usdtAmount})
 
 
   if (myDeposit.withdrawal.triggerWithdrawal === true) {

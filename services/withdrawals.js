@@ -38,14 +38,17 @@ const createWithdrawal = async (input) => {
     cryptocurrency,
     toAddress,
   });
-  let __usdtAmount
-  if (isSkvoz === true) {
-    __usdtAmount = usdtAmount
-  } else {//kogda netu skvoznyaka, nado proverit chtob ne bolshe balansa
-    const usdtBalance =  await virtualBalanceServices.fetchVirtualBalanceByUsername({ username });
-    console.log("= usdtBalance", usdtBalance);
-    __usdtAmount = Math.min(usdtAmount, usdtBalance); //cuz they should never withdraw more than their balance
+  if (isSkvoz != true) {
+    throw new Error("only isSkvoz == true is accepted for now")
   }
+  let __usdtAmount = usdtAmount
+  // if (isSkvoz === true) {
+  //   __usdtAmount = usdtAmount
+  // } else {//kogda netu skvoznyaka, nado proverit chtob ne bolshe balansa
+  //   const usdtBalance =  await virtualBalanceServices.fetchVirtualBalanceByUsername({ username });
+  //   console.log("= usdtBalance", usdtBalance);
+  //   __usdtAmount = Math.min(usdtAmount, usdtBalance); //cuz they should never withdraw more than their balance
+  // }
 
   const cryptoValue = await conversionUtils.convertUsdtToCryptoccurency({
     usdtAmount: __usdtAmount,
@@ -67,11 +70,12 @@ const createWithdrawal = async (input) => {
     blockchain: blockchain,
     cryptoValue,
   });
+  console.log("withdrawal processed sucesffully, ", {blockchainTransactionId,username})
 
-  acidProcessWithdrawalSuccess({
-    withdrawalId: newWithdrawal._id,
-    blockchainTransactionId: blockchainTransactionId,
-  });
+  // acidProcessWithdrawalSuccess({
+  //   withdrawalId: newWithdrawal._id,
+  //   blockchainTransactionId: blockchainTransactionId,
+  // });
 
   return { status: 200 };
   //we basically wait for the webhook at this point. meanwhile on the front end we can refresh refresh refresh
