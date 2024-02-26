@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const {mainConnection} = require("../connections")
+const {serverlessConnection} = require("../connections")
 
 const depositsSchema = new Schema(
   {
@@ -20,4 +20,4 @@ const depositsSchema = new Schema(
   }
 );
 
-module.exports = mainConnection.model("Deposits", depositsSchema);
+module.exports = serverlessConnection.model("Deposits", depositsSchema);
