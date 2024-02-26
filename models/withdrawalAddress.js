@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const {mainConnection} = require("../connections")
+const {serverlessConnection} = require("../connections")
 
 const withdrawalAddressSchema = new Schema(
   {
@@ -16,4 +16,4 @@ const withdrawalAddressSchema = new Schema(
   }
 );
 
-module.exports = mainConnection.model("WithdrawalAddress", withdrawalAddressSchema);
+module.exports = serverlessConnection.model("WithdrawalAddress", withdrawalAddressSchema);
