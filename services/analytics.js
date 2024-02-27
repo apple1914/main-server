@@ -13,7 +13,8 @@ const reportEvent = async ({username,eventName,insertId}) => {
 
 const updateUserProps = async ({username}) => {
     if (ignoreMxp == true) return
-    const result = await mixpanelApi.identifyUser({username})
+    const userProps = {hodor:"yes"}
+    const result = await mixpanelApi.identifyUser({username,userProps})
     console.log("mixpanel updaeUserProps res", result)
     return
 }

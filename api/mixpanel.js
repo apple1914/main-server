@@ -29,7 +29,7 @@ const reportEvent = async ({
       .post(url, payload, { headers: headers })
       .then((res) => res.data)
       .catch((err) => {
-        functions.logger.log(err.response.data);
+        console.log(err.response.data);
         });
   };
 
@@ -49,7 +49,7 @@ const identifyUser = async ({ username, userProps }) => {
         return res.data;
       })
       .catch((err) => {
-        functions.logger.log(err.response.data);
+        console.log(err.response.data);
       });
   };
 
