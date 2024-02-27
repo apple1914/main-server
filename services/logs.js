@@ -3,7 +3,7 @@ const OnrampLogs = require("../models/onrampLogs");
 
 const saveOnrampLog = async ({ data, depositId,eventName }) => {
   const mylogs = new OnrampLogs({
-    data: !!payload ? payload : {},
+    data: !!data ? data : {},
     depositId,
     eventName:eventName
   });
