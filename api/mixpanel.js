@@ -34,7 +34,7 @@ const reportEvent = async ({
   };
 
 
-const addUserProps = async ({ username, userProps }) => {
+const identifyUser = async ({ username, userProps }) => {
     const mxpPaylo = [
       {
         $token: MIXPANEL_TOKEN,
@@ -54,4 +54,4 @@ const addUserProps = async ({ username, userProps }) => {
   };
 
 
-  module.exports = {addUserProps,reportEvent}
+  module.exports = {identifyUser,reportEvent}
