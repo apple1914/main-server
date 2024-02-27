@@ -1,16 +1,18 @@
 const mixpanelApi = require("../api/mixpanel")
-import { v4 as uuidv4, v6 as uuidv6 } from 'uuid';
+const { v4: uuidv4 } = require("uuid");
+const ignoreMxp = process.env.ignoreMxp === "true"
 
 const reportEvent = async ({username,eventName,insertId}) => {
+    if (ignoreMxp == true) return
     await updateUserProps({username})
     const timestamp = Date.now()
-    const result = await mixpanelApi.reportEvent({username,eventName,eventProps:{},insertId:insertId || uuidv6(),timestamp:timestamp})
+    const result = await mixpanelApi.reportEvent({username,eventName,eventProps:{},insertId:insertId || uuidv4(),timestamp:timestamp})
     console.log("mixpanel reportEvent res", result)
-
     return
 }
 
 const updateUserProps = async ({username}) => {
+    if (ignoreMxp == true) return
     const result = await mixpanelApi.identifyUser({username})
     console.log("mixpanel updaeUserProps res", result)
     return
