@@ -1,10 +1,11 @@
 const CryptoWithdrawalLogs = require("../models/cryptoWithdrawalLogs");
 const OnrampLogs = require("../models/onrampLogs");
 
-const saveOnrampLog = async ({ payload, depositId }) => {
+const saveOnrampLog = async ({ data, depositId,eventName }) => {
   const mylogs = new OnrampLogs({
-    data: JSON.stringify(payload),
+    data: !!payload ? payload : {},
     depositId,
+    eventName:eventName
   });
   await mylogs.save();
 };
@@ -19,5 +20,5 @@ const saveCryptoWithdrawalLog = async ({
   });
   await mylogs.save();
 };
-
+//
 module.exports = { saveOnrampLog, saveCryptoWithdrawalLog };

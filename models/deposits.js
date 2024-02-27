@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const {serverlessConnection} = require("../connections")
+const onDocCreateServices = require("../services/onDocCreates")
 
 const depositsSchema = new Schema(
   {
@@ -21,3 +22,7 @@ const depositsSchema = new Schema(
 );
 
 module.exports = serverlessConnection.model("Deposits", depositsSchema);
+
+depositsSchema.post('save', function(doc) {
+  analyticServices.reportEvent({username:doc.username,eventName:"create-deposit",insertId:doc._id})
+});

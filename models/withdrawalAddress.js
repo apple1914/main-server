@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const {serverlessConnection} = require("../connections")
+const onDocCreateServices = require("../services/onDocCreates")
 
 const withdrawalAddressSchema = new Schema(
   {
@@ -17,3 +18,7 @@ const withdrawalAddressSchema = new Schema(
 );
 
 module.exports = serverlessConnection.model("WithdrawalAddress", withdrawalAddressSchema);
+
+withdrawalAddressSchema.post('save', function(doc) {
+  onDocCreateServices.onWithdrawalAddressCreate(doc)
+});

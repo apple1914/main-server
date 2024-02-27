@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const {mainConnection} = require("../connections")
+const onDocCreateServices = require("../services/onDocCreates")
 
 const onrampLogsSchema = new Schema(
   {
-    data: String,
+    data: Map,
     depositId: String,
+    eventName:String,
   },
   {
     collection: "onrampLogs",
@@ -14,3 +16,6 @@ const onrampLogsSchema = new Schema(
 );
 
 module.exports = mainConnection.model("OnrampLogs", onrampLogsSchema);
+onrampLogsSchema.post('save', function(doc) {
+  onDocCreateServices.onOnrampLogsCreate(doc)
+});
