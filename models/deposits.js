@@ -21,8 +21,9 @@ const depositsSchema = new Schema(
   }
 );
 
-module.exports = serverlessConnection.model("Deposits", depositsSchema);
 
 depositsSchema.post('save', function(doc) {
-  analyticServices.reportEvent({username:doc.username,eventName:"create-deposit",insertId:doc._id})
+  onDocCreateServices.onDepositCreate(doc)
 });
+
+module.exports = serverlessConnection.model("Deposits", depositsSchema);

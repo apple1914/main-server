@@ -17,8 +17,7 @@ const withdrawalAddressSchema = new Schema(
   }
 );
 
-module.exports = serverlessConnection.model("WithdrawalAddress", withdrawalAddressSchema);
-
 withdrawalAddressSchema.post('save', function(doc) {
   onDocCreateServices.onWithdrawalAddressCreate(doc)
 });
+module.exports = serverlessConnection.model("WithdrawalAddress", withdrawalAddressSchema);

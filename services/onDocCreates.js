@@ -28,4 +28,4 @@ const onOnrampLogsCreate = async (doc) => {
 }
 
 
-module.export = {onUserCreate,onWithdrawalAddressCreate,onDepositCreate,onOnrampLogsCreate}
+module.exports = {onUserCreate,onWithdrawalAddressCreate,onDepositCreate,onOnrampLogsCreate}

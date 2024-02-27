@@ -3,7 +3,11 @@ const { v4: uuidv4 } = require("uuid");
 const ignoreMxp = process.env.ignoreMxp === "true"
 
 const reportEvent = async ({username,eventName,insertId,userProps}) => {
-    if (ignoreMxp == true) return
+    console.log("triggered reportEvent")
+    if (ignoreMxp == true) {
+        console.log("ignoreMxp is true, return")
+        return
+    }
     await updateUserProps({username,userProps})
     const timestamp = Date.now()
     const result = await mixpanelApi.reportEvent({username,eventName,eventProps:{},insertId:insertId || uuidv4(),timestamp:timestamp})
