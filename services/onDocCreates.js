@@ -21,11 +21,11 @@ const onDepositCreate = async (doc) => {
 const onOnrampLogsCreate = async (doc) => {
     console.log("triggered: onOnrampLogsCreate")
 
-    const myDeposit = await depositServices.fetchDepositById({ depositId:doc._id });
-    const username = myDeposit.username
-    const eventName = doc.eventName
-    await analyticServices.reportEvent({username:username,eventName:eventName,insertId:doc._id})
+    // const myDeposit = await depositServices.fetchDepositById({ depositId:doc._id });
+    // const username = myDeposit.username
+    // const eventName = doc.eventName
+    // await analyticServices.reportEvent({username:username,eventName:eventName,insertId:doc._id})
 }
 
 
-module.exports = {onUserCreate,onWithdrawalAddressCreate,onDepositCreate,onOnrampLogsCreate}
+module.exports = {onOnrampLogsCreate,onUserCreate,onWithdrawalAddressCreate,onDepositCreate}
