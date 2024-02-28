@@ -153,12 +153,6 @@ const processTransakWebhook = async ({payload,isProd}) => {
   return;
 };
 
-module.exports = {
-  createDeposit,
-  processMercuryoWebhook,
-  processTransakWebhook,
-};
-
 const handleOnrampsWebhookData = async ({
   depositId,
   cryptocurrency,
@@ -201,6 +195,14 @@ const updateDepositById = async ({ depositId, update }) => {
   await Deposits.findByIdAndUpdate(depositId, update); //
   return;
 };
+
+
+module.exports = {
+  createDeposit,
+  processMercuryoWebhook,
+  processTransakWebhook,handleOnrampsWebhookData
+};
+
 
 // const acidReflectDeposit = async ({ usdtAmount, depositId }) => {
 //   const { username } = await fetchDepositById({ depositId });
