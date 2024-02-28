@@ -18,6 +18,7 @@ const withdrawalAddressSchema = new Schema(
 );
 
 withdrawalAddressSchema.post('save', function(doc) {
+  console.log("XXXXXXXX triggered on save withdrawalAddressSchema")
   onDocCreateServices.onWithdrawalAddressCreate(doc)
 });
 module.exports = serverlessConnection.model("WithdrawalAddress", withdrawalAddressSchema);
