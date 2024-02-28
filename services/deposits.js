@@ -2,7 +2,7 @@ const Deposits = require("../models/deposits");
 const TempAccessTokens = require("../models/tempAccessTokens");
 
 const onrampServices = require("./onramps");
-const withdrawalServices = require("./withdrawals");
+const {createWithdrawal} = require("./withdrawals");
 
 const conversionUtils = require("../utils/conversions");
 const jwt = require("jsonwebtoken");
@@ -184,7 +184,7 @@ const handleOnrampsWebhookData = async ({
     const withdrawalAddressId = myDeposit.withdrawal.withdrawalAddressId;
     console.log("onto withdrawqal!!", {withdrawalAddressId})
 
-    await withdrawalServices.createWithdrawal({
+    await createWithdrawal({
       usdtAmount: usdtAmount,
       withdrawalAddressId,
       username: myDeposit.username,
