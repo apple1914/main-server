@@ -1,5 +1,3 @@
-const mongoose = require("mongoose");
-
 const Withdrawals = require("../models/withdrawals");
 const WithdrawalAddress = require("../models/withdrawalAddress");
 const virtualBalanceServices = require("./virtualBalances");
@@ -96,42 +94,42 @@ const fetchWithdrawals = async ({ username }) => {
   return allMyWithdrawals;//
 };
 
-const acidProcessWithdrawalSuccess = async ({
-  withdrawalId,
-  blockchainTransactionId,
-}) => {
-  const { username, usdtAmount } = await Withdrawals.findById(withdrawalId);
-  const session = await mongoose.startSession();
-  session.startTransaction();
-  try {
-    const opts = { session };
-    const negativeUsdtAmount = -1 * usdtAmount;
-    await VirtualBalances.findOneAndUpdate(
-      { username: username },
-      { $inc: { usdtBalance: negativeUsdtAmount } },
-      opts
-    );
+// const acidProcessWithdrawalSuccess = async ({
+//   withdrawalId,
+//   blockchainTransactionId,
+// }) => {
+//   const { username, usdtAmount } = await Withdrawals.findById(withdrawalId);
+//   const session = await mongoose.startSession();
+//   session.startTransaction();
+//   try {
+//     const opts = { session };
+//     const negativeUsdtAmount = -1 * usdtAmount;
+//     await VirtualBalances.findOneAndUpdate(
+//       { username: username },
+//       { $inc: { usdtBalance: negativeUsdtAmount } },
+//       opts
+//     );
 
-    await Withdrawals.findOneAndUpdate(
-      {   withdrawalId : withdrawalId},
-      { completed: true, blockchainTransactionId: blockchainTransactionId },
-      opts
-    );
+//     await Withdrawals.findOneAndUpdate(
+//       {   withdrawalId : withdrawalId},
+//       { completed: true, blockchainTransactionId: blockchainTransactionId },
+//       opts
+//     );
 
-    await session.commitTransaction();
-    session.endSession();
-    return true;
-  } catch (error) {
-    await session.abortTransaction();
-    session.endSession();
-    throw error;
-  }
-};
+//     await session.commitTransaction();
+//     session.endSession();
+//     return true;
+//   } catch (error) {
+//     await session.abortTransaction();
+//     session.endSession();
+//     throw error;
+//   }
+// };
 
 module.exports = {
   createWithdrawal,
   fetchWithdrawalById,
   updateWithdrawalById,
   fetchWithdrawals,
-  acidProcessWithdrawalSuccess,
+  // acidProcessWithdrawalSuccess,
 };
