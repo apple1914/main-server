@@ -1,17 +1,13 @@
 const Deposits = require("../models/deposits");
 const TempAccessTokens = require("../models/tempAccessTokens");
 
-const VirtualBalances = require("../models/virtualBalances");
 const onrampServices = require("./onramps");
 const withdrawalServices = require("./withdrawals");
 
-const cryptoServices = require("./crypto");
 const conversionUtils = require("../utils/conversions");
-const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const virtualBalanceServices = require("./virtualBalances");
 const logServices = require("../services/logs");
-const analyticServices = require("./analytics")
 const DEPOSIT_BLOCKCHAIN = "bsc";
 
 const blockchainToDepositSettings = {
@@ -206,36 +202,36 @@ const updateDepositById = async ({ depositId, update }) => {
   return;
 };
 
-const acidReflectDeposit = async ({ usdtAmount, depositId }) => {
-  const { username } = await fetchDepositById({ depositId });
-  console.log("going to record following deposit", { username, depositId });
-  const session = await mongoose.startSession();
-  session.startTransaction();
-  try {
-    const opts = { session };
-    await VirtualBalances.findOneAndUpdate(
-      { username: username },
-      { $inc: { usdtBalance: usdtAmount } },
-      opts
-    );
+// const acidReflectDeposit = async ({ usdtAmount, depositId }) => {
+//   const { username } = await fetchDepositById({ depositId });
+//   console.log("going to record following deposit", { username, depositId });
+//   const session = await mongoose.startSession();
+//   session.startTransaction();
+//   try {
+//     const opts = { session };
+//     await VirtualBalances.findOneAndUpdate(
+//       { username: username },
+//       { $inc: { usdtBalance: usdtAmount } },
+//       opts
+//     );
 
-    await Deposits.findOneAndUpdate(
-      { depositId: depositId },
-      { usdtAmount: usdtAmount, completed: true },
-      opts
-    );
-    console.log("finished recording deposit!")
+//     await Deposits.findOneAndUpdate(
+//       { depositId: depositId },
+//       { usdtAmount: usdtAmount, completed: true },
+//       opts
+//     );
+//     console.log("finished recording deposit!")
 
-    await session.commitTransaction();
-    session.endSession();
-    return;
-  } catch (error) {
-    console.log("error w session mongo",error)
-    await session.abortTransaction();
-    session.endSession();
-    throw error;
-  }
-};
+//     await session.commitTransaction();
+//     session.endSession();
+//     return;
+//   } catch (error) {
+//     console.log("error w session mongo",error)
+//     await session.abortTransaction();
+//     session.endSession();
+//     throw error;
+//   }
+// };
 
 // async function updateWallet(userId, amount) {
 //   const session = await User.startSession();//

@@ -1,9 +1,7 @@
 const Withdrawals = require("../models/withdrawals");
 const WithdrawalAddress = require("../models/withdrawalAddress");
-const virtualBalanceServices = require("./virtualBalances");
 const cryptoServices = require("./crypto");
 const conversionUtils = require("../utils/conversions");
-const VirtualBalances = require("../models/virtualBalances");
 
 const createWithdrawal = async (input) => {
   const {
