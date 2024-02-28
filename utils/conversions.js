@@ -51,7 +51,7 @@ const convertCryptoccurencyToUsdt = async ({ cryptoValue, cryptocurrency }) => {
   const data = await coinmarketcapApis.fetchPrice({ cryptocurrency });
   console.log("data", data);
   const priceData = data[Object.keys(data)[0]];
-  console.log("priceData",priceData)
+  // console.log("priceData",priceData)
   console.log("priceData[0]",priceData[0])
 
   const price = Number(priceData.quote.USD.price);
