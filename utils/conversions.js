@@ -54,7 +54,7 @@ const convertCryptoccurencyToUsdt = async ({ cryptoValue, cryptocurrency }) => {
   // console.log("priceData",priceData)
   console.log("priceData[0]",priceData[0])
 
-  const price = Number(priceData.quote.USD.price);
+  const price = Number(priceData[0].quote.USD.price);
   const cryptoValueParsed = parseMercuryoAmountString({ amount: cryptoValue });
   return cryptoValueParsed * price;
 };
