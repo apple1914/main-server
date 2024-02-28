@@ -49,9 +49,12 @@ module.exports = {
 const convertCryptoccurencyToUsdt = async ({ cryptoValue, cryptocurrency }) => {
   console.log("converting following to USDT", { cryptoValue, cryptocurrency });
   const data = await coinmarketcapApis.fetchPrice({ cryptocurrency });
-  // console.log("data", data);
+  console.log("data", data);
   const priceData = data[Object.keys(data)[0]];
-  const price = Number(priceData.quote.USD.price);
+  // console.log("priceData",priceData)
+  console.log("priceData[0]",priceData[0])
+
+  const price = Number(priceData[0].quote.USD.price);
   const cryptoValueParsed = parseMercuryoAmountString({ amount: cryptoValue });
   return cryptoValueParsed * price;
 };
