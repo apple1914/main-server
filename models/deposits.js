@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const {mainConnection} = require("../connections")
+const {serverlessConnection} = require("../connections")
+const onDocCreateServices = require("../services/onDocCreates")
 
 const depositsSchema = new Schema(
   {
@@ -20,4 +21,9 @@ const depositsSchema = new Schema(
   }
 );
 
-module.exports = mainConnection.model("Deposits", depositsSchema);
+
+depositsSchema.post('save', function(doc) {
+  onDocCreateServices.onDepositCreate(doc)
+});
+
+module.exports = serverlessConnection.model("Deposits", depositsSchema);

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const {mainConnection} = require("../connections")
-
+const {serverlessConnection} = require("../connections")
+const onDocCreateServices = require("../services/onDocCreates")
 const usersSchema = new Schema(
   {
     username: String,
@@ -16,4 +16,15 @@ const usersSchema = new Schema(
   }
 );
 
-module.exports = mainConnection.model("Users", usersSchema);
+
+
+
+usersSchema.post('save', function(doc) {
+  console.log("triggered usersSchema func")
+  onDocCreateServices.onUserCreate(doc)
+});
+
+
+module.exports = serverlessConnection.model("Users", usersSchema);//
+
+

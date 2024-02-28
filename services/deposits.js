@@ -11,7 +11,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const virtualBalanceServices = require("./virtualBalances");
 const logServices = require("../services/logs");
-
+const analyticServices = require("./analytics")
 const DEPOSIT_BLOCKCHAIN = "bsc";
 
 const blockchainToDepositSettings = {
@@ -89,7 +89,7 @@ const processMercuryoWebhook = async (payload) => {
     return;
   }
   const depositId = merchantTransactionId.slice(0, -2);
-  logServices.saveOnrampLog({ payload, depositId });
+  logServices.saveOnrampLog({ data:payload, depositId,eventName:[type,status].join("-") });
   await handleOnrampsWebhookData({
     depositId: depositId,
     cryptocurrency: currency.toUpperCase(),
@@ -131,11 +131,16 @@ const processTransakWebhook = async ({payload,isProd}) => {
     referenceCode,
   } = webhookData; //useful for future
   //here you can also save the logs
-
-  logServices.saveOnrampLog({
-    payload: { ...webhookData, eventID },
-    depositId: partnerOrderId,
-  });
+  
+    logServices.saveOnrampLog({
+      data: webhookData,
+      depositId: partnerOrderId,
+      eventName: eventID
+    });
+   
+  
+  
+  
 
   if (status == "COMPLETED" && eventID == "ORDER_COMPLETED") {
     console.log(
@@ -163,7 +168,7 @@ const handleOnrampsWebhookData = async ({
   cryptocurrency,
   cryptoValue,
 }) => {
-  console.log("here at handleOnrampsWebhookData", {
+  console.log("here at handleOnramps WebhookData", {
     depositId,
     cryptocurrency,
     cryptoValue,
@@ -176,7 +181,7 @@ const handleOnrampsWebhookData = async ({
     cryptocurrency: cryptocurrency,
   });
   console.log("usdtAmount:", usdtAmount)
-  acidReflectDeposit({depositId,usdtAmount})
+  // acidReflectDeposit({depositId,usdtAmount})
 
 
   if (myDeposit.withdrawal.triggerWithdrawal === true) {

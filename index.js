@@ -16,6 +16,7 @@ const systemUtilityRouter = require("./routes/systemUtility");
 const customerSupportRouter = require("./routes/customerSupport");
 const currenciesRouter = require("./routes/currencies");
 const userRouter = require("./routes/users");
+const testRouter = require("./routes/tests");
 
 
 const express = require("express");
@@ -59,7 +60,7 @@ app.use("/systemUtility/", systemUtilityRouter);
 app.use("/customerSupport/", customerSupportRouter);
 app.use("/currencies/", currenciesRouter);
 app.use("/users/", userRouter);
-
+app.use("/tests/",testRouter)
 app.get("/", (req, res) => {
   res.send("Hi whatsup!");
 });
