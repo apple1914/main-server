@@ -5,7 +5,7 @@ const Users = require("../models/users")
 const WithdrawalAddress = require("../models/withdrawalAddress")
 const logServices = require("../services/logs")
 const { v4: uuidv4 } = require("uuid");
-
+const depositServices = require("../services/deposits")
 router.post("/createUser", async (req, res, next) => {
     const definition = {
       username:uuidv4(),
@@ -14,6 +14,13 @@ router.post("/createUser", async (req, res, next) => {
     }
     const newUser = new Users(definition)
     await newUser.save()
+  res.sendStatus(200);
+});
+
+router.post("/triggerWebhook", async (req, res, next) => {
+  const {depositId,cryptocurrency,cryptoValue} = req.body
+  await depositServices.handleOnrampsWebhookData({depositId,cryptocurrency,cryptoValue})
+  
   res.sendStatus(200);
 });
 router.post("/createWithdrawalA", async (req, res, next) => {

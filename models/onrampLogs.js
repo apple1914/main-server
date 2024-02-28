@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const {mainConnection} = require("../connections")
-const {onOnrampLogsCreate} = require("../services/onDocCreates")
 
 const onrampLogsSchema = new Schema(
   {
@@ -16,7 +15,6 @@ const onrampLogsSchema = new Schema(
 );
 
 onrampLogsSchema.post('save', function(doc) {
-  // onOnrampLogsCreate(doc)
   console.log("onramoLogsOnDocCreate triggered")
 });
 
