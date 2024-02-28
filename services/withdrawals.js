@@ -1,7 +1,7 @@
 const Withdrawals = require("../models/withdrawals");
 const WithdrawalAddress = require("../models/withdrawalAddress");
 const cryptoServices = require("./crypto");
-const conversionUtils = require("../utils/conversions");
+const {convertUsdtToCryptoccurency} = require("../utils/conversions");
 
 const createWithdrawal = async (input) => {
   const {
@@ -46,7 +46,7 @@ const createWithdrawal = async (input) => {
   //   __usdtAmount = Math.min(usdtAmount, usdtBalance); //cuz they should never withdraw more than their balance
   // }
 
-  const cryptoValue = await conversionUtils.convertUsdtToCryptoccurency({
+  const cryptoValue = await convertUsdtToCryptoccurency({
     usdtAmount: __usdtAmount,
     cryptocurrency: myWithdrawalAddress.cryptocurrency,
   });

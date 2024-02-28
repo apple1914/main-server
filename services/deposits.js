@@ -6,7 +6,6 @@ const {createWithdrawal} = require("./withdrawals");
 
 const conversionUtils = require("../utils/conversions");
 const jwt = require("jsonwebtoken");
-const virtualBalanceServices = require("./virtualBalances");
 const logServices = require("../services/logs");
 const DEPOSIT_BLOCKCHAIN = "bsc";
 
@@ -73,7 +72,7 @@ const createDeposit = async (input) => {
     blockchain,
     cryptocurrency,
   });
-  virtualBalanceServices.initializeVirtualBalanceByUsernameIfNone({ username });
+  // virtualBalanceServices.initializeVirtualBalanceByUsernameIfNone({ username });
 
   return { depositId, onrampName, onrampPayload };
 };
