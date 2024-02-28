@@ -19,10 +19,10 @@ const usersSchema = new Schema(
 
 
 
-usersSchema.post('save', function(doc) {
-  console.log("triggered usersSchema func")
-  onDocCreateServices.onUserCreate(doc)
-});
+// usersSchema.post('save', function(doc) {
+//   console.log("triggered usersSchema func")
+//   onDocCreateServices.onUserCreate(doc)
+// });
 
 
 module.exports = serverlessConnection.model("Users", usersSchema);//

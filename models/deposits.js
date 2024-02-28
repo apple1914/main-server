@@ -22,8 +22,8 @@ const depositsSchema = new Schema(
 );
 
 
-depositsSchema.post('save', function(doc) {
-  onDocCreateServices.onDepositCreate(doc)
-});
+// depositsSchema.post('save', function(doc) {
+//   onDocCreateServices.onDepositCreate(doc)
+// });
 
 module.exports = serverlessConnection.model("Deposits", depositsSchema);

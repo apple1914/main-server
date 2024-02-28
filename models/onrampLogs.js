@@ -14,8 +14,8 @@ const onrampLogsSchema = new Schema(
   }
 );
 
-onrampLogsSchema.post('save', function(doc) {
-  console.log("onramoLogsOnDocCreate triggered")
-});
+// onrampLogsSchema.post('save', function(doc) {
+//   console.log("onramoLogsOnDocCreate triggered")
+// });
 
 module.exports = mainConnection.model("OnrampLogs", onrampLogsSchema);
