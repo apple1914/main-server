@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-const withdrawalServices = require("../services/withdrawals");
+const withdrawalServices = require("../services/withdrawals.js");
 const { VerifyToken } = require("../middlewares/VerifyToken.js");
 
 router.use(VerifyToken);

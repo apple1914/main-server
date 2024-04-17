@@ -1,23 +1,12 @@
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
-require('dotenv').config()
+require("dotenv").config();
 
 var path = require("path");
-const mongoose = require("mongoose");
 const cors = require("cors");
 // const { VerifyToken } = require("./middlewares/VerifyToken.js")
 
-const indexRouter = require("./routes/index");
-const cryptoRouter = require("./routes/crypto");
-const depositRouter = require("./routes/deposits");
-const withdrawalRouter = require("./routes/withdrawals");
-const withdrawalAddressRouter = require("./routes/withdrawalAddress");
-const systemUtilityRouter = require("./routes/systemUtility");
-const customerSupportRouter = require("./routes/customerSupport");
-const currenciesRouter = require("./routes/currencies");
-const userRouter = require("./routes/users");
-const testRouter = require("./routes/tests");
-
+const messageRouter = require("./routes/messages");
 
 const express = require("express");
 const app = express();
@@ -35,34 +24,15 @@ app.use(
   })
 );
 
-// app.use(VerifyToken);
-
 app.use(cookieParser());
 app.use(bodyParser());
-// app.use(express.static(path.join(__dirname, "public")));
 app.use("/public", express.static("public"));
 
-//mongodb change this one up
-// const mongoDB =
-// mongoURI
-// mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
-// mongoose.set("debug", true);
-// const db = mongoose.connection;
-// db.on("error", console.error.bind(console, "MongoDB connection error:"));
-
 ///////
-app.use("/", indexRouter);
-app.use("/crypto/", cryptoRouter);
-app.use("/deposits/", depositRouter);
-app.use("/withdrawals/", withdrawalRouter);
-app.use("/withdrawalAddress/", withdrawalAddressRouter);
-app.use("/systemUtility/", systemUtilityRouter);
-app.use("/customerSupport/", customerSupportRouter);
-app.use("/currencies/", currenciesRouter);
-app.use("/users/", userRouter);
-app.use("/tests/",testRouter)
+app.use("/messages/", messageRouter);
+
 app.get("/", (req, res) => {
-  res.send("Hi whatsup!");
+  res.send("Hello world!");
 });
 
 app.listen(port, () => {
@@ -70,4 +40,3 @@ app.listen(port, () => {
 });
 
 module.exports = app;
-
