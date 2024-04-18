@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const mongoURI = process.env.MONGO_URI;
-const mongoUriServerless = process.env.MONGO_URI_SERVERLESS;
+// const mongoUriServerless = process.env.MONGO_URI_SERVERLESS;
 
 const makeNewConnection = (uri) => {
   const db = mongoose.createConnection(uri, {
@@ -31,9 +31,9 @@ const makeNewConnection = (uri) => {
 };
 
 const mainConnection = makeNewConnection(mongoURI);
-const serverlessConnection = makeNewConnection(mongoUriServerless);
+// const serverlessConnection = makeNewConnection(mongoUriServerless);
 
 module.exports = {
   mainConnection,
-  serverlessConnection,
+  //   serverlessConnection,
 };
